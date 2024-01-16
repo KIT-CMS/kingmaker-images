@@ -1,0 +1,3 @@
+[submodule "KingMaker"]
+	path = KingMaker
+	url = git@github.com:KIT-CMS/KingMaker
