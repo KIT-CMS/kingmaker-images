@@ -12,6 +12,8 @@ env:
   IMAGE_NAME7: ${{ github.repository }}-centos7
   IMAGE_NAME8: ${{ github.repository }}-centos8
   IMAGE_NAME9: ${{ github.repository }}-rhel9
+  IMAGE_NAME_UBUNTU2004: ${{ github.repository }}-ubuntu2004
+  IMAGE_NAME_UBUNTU2204: ${{ github.repository }}-ubuntu2204
   ENV_FILE: KingMaker_env.yml
 
 # There is a single job in this workflow. It's configured to run on the latest available version of Ubuntu.
@@ -99,6 +101,66 @@ jobs:
       - name: Get latest env file from the KingMaker repo
         run: |
           curl -s https://raw.githubusercontent.com/KIT-CMS/KingMaker/main/conda_environments/${{env.ENV_FILE}} > rhel9/conda_env.yml
+      - name: Build and push Docker image
+        uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
+        with:
+          context: .
+          file: rhel9/Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+  Build-Ubuntu2004:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Log in to the Container registry
+        uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.TOKEN }}
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_UBUNTU2004 }}
+      - name: Get latest env file from the KingMaker repo
+        run: |
+          curl -s https://raw.githubusercontent.com/KIT-CMS/KingMaker/main/conda_environments/${{env.ENV_FILE}} > ubuntu2004/conda_env.yml
+      - name: Build and push Docker image
+        uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
+        with:
+          context: .
+          file: rhel9/Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+  Build-Ubuntu2204:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Log in to the Container registry
+        uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.TOKEN }}
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_UBUNTU2204 }}
+      - name: Get latest env file from the KingMaker repo
+        run: |
+          curl -s https://raw.githubusercontent.com/KIT-CMS/KingMaker/main/conda_environments/${{env.ENV_FILE}} > ubuntu2204/conda_env.yml
       - name: Build and push Docker image
         uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
         with:
