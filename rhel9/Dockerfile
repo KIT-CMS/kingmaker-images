@@ -3,7 +3,7 @@ LABEL AUTHOR="Sebastian Brommer <brommer.sebastian@gmail.com>"
 ARG MINIFORGE_NAME=Miniforge3
 ARG MINIFORGE_VERSION=23.11.0-0
 ARG TARGETPLATFORM
-ARG ENV_NAME=KingMaker
+ARG ENV_NAME=env
 ENV CONDA_DIR=/opt/conda
 
 # Create Server directory
