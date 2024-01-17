@@ -4,7 +4,7 @@ name: Create and publish a Docker image
 # Configures this workflow to run every time a change is pushed to the branch called `release`.
 on:
   push:
-    branches: ["release"]
+    branches: ["base"]
 
 # Defines two custom environment variables for the workflow. These are used for the Container registry domain, and a name for the Docker image that this workflow builds.
 env:
@@ -12,7 +12,7 @@ env:
   IMAGE_NAME7: ${{ github.repository }}-centos7
   IMAGE_NAME8: ${{ github.repository }}-centos8
   IMAGE_NAME9: ${{ github.repository }}-rhel9
-  ENV_FILE: KingMaker_env.yml
+  ENV_FILE: ML_LAW_env.yml
 
 # There is a single job in this workflow. It's configured to run on the latest available version of Ubuntu.
 jobs:
