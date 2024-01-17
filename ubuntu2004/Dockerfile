@@ -11,7 +11,7 @@ RUN mkdir -p /srv
 
 # Add configurations
 # they will be picked from https://raw.githubusercontent.com/KIT-CMS/KingMaker during build
-ADD centos8/conda_env.yml /srv/conda_env.yml
+ADD ubuntu2004/conda_env.yml /srv/conda_env.yml
 
 RUN apt -y update && apt -y upgrade && apt -y autoremove && apt -y autoclean
 RUN apt -y install wget python3 python3-pip tini && apt -y autoremove && apt -y autoclean
