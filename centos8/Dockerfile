@@ -1,21 +1,22 @@
-FROM centos:7
+FROM rockylinux:8
 LABEL AUTHOR="Sebastian Brommer <brommer.sebastian@gmail.com>"
 ARG MINIFORGE_NAME=Miniforge3
 ARG MINIFORGE_VERSION=23.11.0-0
 ARG TARGETPLATFORM
-ARG ENV_NAME=KingMaker_env
+ARG ENV_NAME=KingMaker
 ENV CONDA_DIR=/opt/conda
 
 # Create Server directory
 RUN mkdir -p /srv
 
 # Add configurations
-ADD centos7/${ENV_NAME}/${ENV_NAME}.yml /srv/conda_env.yml
+# they will be picked from https://raw.githubusercontent.com/KIT-CMS/KingMaker during build
+ADD centos8/conda_env.yml /srv/conda_env.yml
 
-RUN yum -y update && yum clean all
+RUN dnf -y update && dnf clean all
 
-RUN yum -y install epel-release && yum clean all
-RUN yum -y install wget python3 python3-pip && yum clean all
+RUN dnf -y install epel-release && dnf clean all
+RUN dnf -y install wget python3 python3-pip && dnf clean all
 
 RUN python3 -m pip install --upgrade pip
 # Install conda
@@ -27,7 +28,7 @@ RUN . ${CONDA_DIR}/etc/profile.d/conda.sh && conda env create -f /srv/conda_env.
 RUN echo ". ${CONDA_DIR}/etc/profile.d/conda.sh && conda activate ${ENV_NAME}" >> /etc/skel/.bashrc && \
     echo ". ${CONDA_DIR}/etc/profile.d/conda.sh && conda activate ${ENV_NAME}" >> ~/.bashrc
 
-RUN yum install -y tini && yum clean all
+RUN dnf install -y tini && dnf clean all
 
 ENTRYPOINT ["tini", "--"]
 CMD [ "/bin/bash" ]
