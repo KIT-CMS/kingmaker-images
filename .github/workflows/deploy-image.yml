@@ -12,6 +12,7 @@ env:
   IMAGE_NAME7: ${{ github.repository }}-centos7
   IMAGE_NAME8: ${{ github.repository }}-centos8
   IMAGE_NAME9: ${{ github.repository }}-rhel9
+  ENV_FILE: KingMaker_env.yml
 
 # There is a single job in this workflow. It's configured to run on the latest available version of Ubuntu.
 jobs:
@@ -36,12 +37,12 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME7 }}
       - name: Get latest env file from the KingMaker repo
         run: |
-          curl -s https://raw.githubusercontent.com/KIT-CMS/KingMaker/main/conda_environments/KingMaker_env.yml > centos7/conda_env.yml
+          curl -s https://raw.githubusercontent.com/KIT-CMS/KingMaker/main/conda_environments/${{env.ENV_FILE}} > centos7/conda_env.yml
       - name: Build and push Docker image
         uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
         with:
           context: .
-          file: centos7/KingMaker_env/Dockerfile
+          file: centos7/Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
@@ -67,12 +68,12 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME8 }}
       - name: Get latest env file from the KingMaker repo
         run: |
-          curl -s https://raw.githubusercontent.com/KIT-CMS/KingMaker/main/conda_environments/KingMaker_env.yml > centos8/conda_env.yml
+          curl -s https://raw.githubusercontent.com/KIT-CMS/KingMaker/main/conda_environments/${{env.ENV_FILE}} > centos8/conda_env.yml
       - name: Build and push Docker image
         uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
         with:
           context: .
-          file: centos8/KingMaker_env/Dockerfile
+          file: centos8/Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
@@ -97,12 +98,12 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME9 }}
       - name: Get latest env file from the KingMaker repo
         run: |
-          curl -s https://raw.githubusercontent.com/KIT-CMS/KingMaker/main/conda_environments/KingMaker_env.yml > rhel9/conda_env.yml
+          curl -s https://raw.githubusercontent.com/KIT-CMS/KingMaker/main/conda_environments/${{env.ENV_FILE}} > rhel9/conda_env.yml
       - name: Build and push Docker image
         uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
         with:
           context: .
-          file: rhel9/KingMaker_env/Dockerfile
+          file: rhel9/Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
