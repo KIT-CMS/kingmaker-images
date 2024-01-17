@@ -1,4 +1,4 @@
-FROM mschnepf/slc7-condocker:latest
+FROM cern/cc7-base:latest
 LABEL AUTHOR="Sebastian Brommer <brommer.sebastian@gmail.com>"
 ARG MINIFORGE_NAME=Miniforge3
 ARG MINIFORGE_VERSION=23.11.0-0
@@ -16,7 +16,7 @@ ADD centos7/conda_env.yml /srv/conda_env.yml
 RUN yum -y update && yum clean all
 
 RUN yum -y install epel-release && yum clean all
-RUN yum -y install wget python3 python3-pip && yum clean all
+RUN yum -y install wget python3 python3-pip libstdc++ gcc make && yum clean all
 
 RUN python3 -m pip install --upgrade pip
 # Install conda
