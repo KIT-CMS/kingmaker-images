@@ -1,16 +1,17 @@
-FROM rockylinux:8
+FROM rockylinux:9
 LABEL AUTHOR="Sebastian Brommer <brommer.sebastian@gmail.com>"
 ARG MINIFORGE_NAME=Miniforge3
 ARG MINIFORGE_VERSION=23.11.0-0
 ARG TARGETPLATFORM
-ARG ENV_NAME=KingMaker_env
+ARG ENV_NAME=KingMaker
 ENV CONDA_DIR=/opt/conda
 
 # Create Server directory
 RUN mkdir -p /srv
 
 # Add configurations
-ADD ${ENV_NAME}.yml /srv/conda_env.yml
+# they will be picked from https://raw.githubusercontent.com/KIT-CMS/KingMaker during build
+ADD rhel9/conda_env.yml /srv/conda_env.yml
 
 RUN dnf -y update && dnf clean all
 
