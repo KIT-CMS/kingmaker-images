@@ -1,4 +1,4 @@
-FROM rockylinux:9
+FROM cern/alma9-base:latest
 LABEL AUTHOR="Sebastian Brommer <brommer.sebastian@gmail.com>"
 ARG MINIFORGE_NAME=Miniforge3
 ARG MINIFORGE_VERSION=23.11.0-0
