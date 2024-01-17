@@ -10,7 +10,7 @@ ENV CONDA_DIR=/opt/conda
 RUN mkdir -p /srv
 
 # Add configurations
-ADD ${ENV_NAME}.yml /srv/conda_env.yml
+ADD centos7/${ENV_NAME}/${ENV_NAME}.yml /srv/conda_env.yml
 
 RUN yum -y update && yum clean all
 
