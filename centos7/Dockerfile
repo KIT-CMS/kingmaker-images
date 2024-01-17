@@ -16,7 +16,7 @@ ADD centos7/conda_env.yml /srv/conda_env.yml
 RUN yum -y update && yum clean all
 
 RUN yum -y install epel-release && yum clean all
-RUN yum -y install wget python3 python3-pip libstdc++ gcc make && yum clean all
+RUN yum -y install wget python3 python3-pip libstdc++ gcc make which redhat-lsb-core && yum clean all
 
 RUN python3 -m pip install --upgrade pip
 # Install conda

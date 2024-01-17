@@ -16,7 +16,7 @@ ADD centos8/conda_env.yml /srv/conda_env.yml
 RUN dnf -y update && dnf clean all
 
 RUN dnf -y install epel-release && dnf clean all
-RUN dnf -y install wget python3 python3-pip gcc make libstdc++ && dnf clean all
+RUN dnf -y install wget python3 python3-pip gcc make libstdc++ which redhat-lsb-core && dnf clean all
 
 RUN python3 -m pip install --upgrade pip
 # Install conda
