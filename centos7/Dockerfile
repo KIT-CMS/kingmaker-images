@@ -14,9 +14,8 @@ RUN mkdir -p /srv
 ADD centos7/conda_env.yml /srv/conda_env.yml
 
 RUN yum -y update && yum clean all
-
 RUN yum -y install epel-release && yum clean all
-RUN yum -y install wget python3 python3-pip libstdc++ gcc make which redhat-lsb-core && yum clean all
+RUN yum -y install wget python3 python3-pip tini redhat-lsb-core && yum clean all
 
 RUN python3 -m pip install --upgrade pip
 # Install conda
@@ -28,7 +27,6 @@ RUN . ${CONDA_DIR}/etc/profile.d/conda.sh && conda env create -f /srv/conda_env.
 RUN echo ". ${CONDA_DIR}/etc/profile.d/conda.sh && conda activate ${ENV_NAME}" >> /etc/skel/.bashrc && \
     echo ". ${CONDA_DIR}/etc/profile.d/conda.sh && conda activate ${ENV_NAME}" >> ~/.bashrc
 
-RUN yum install -y tini && yum clean all
 
 ENTRYPOINT ["tini", "--"]
 CMD [ "/bin/bash" ]

@@ -14,9 +14,8 @@ RUN mkdir -p /srv
 ADD rhel9/conda_env.yml /srv/conda_env.yml
 
 RUN dnf -y update && dnf clean all
-
 RUN dnf -y install epel-release && dnf clean all
-RUN dnf -y install wget python3 python3-pip libstdc++ gcc make which redhat-lsb-core && dnf clean all
+RUN dnf -y install wget python3 python3-pip tini && dnf clean all
 
 RUN python3 -m pip install --upgrade pip
 # Install conda
@@ -28,7 +27,6 @@ RUN . ${CONDA_DIR}/etc/profile.d/conda.sh && conda env create -f /srv/conda_env.
 RUN echo ". ${CONDA_DIR}/etc/profile.d/conda.sh && conda activate ${ENV_NAME}" >> /etc/skel/.bashrc && \
     echo ". ${CONDA_DIR}/etc/profile.d/conda.sh && conda activate ${ENV_NAME}" >> ~/.bashrc
 
-RUN dnf install -y tini && dnf clean all
 
 ENTRYPOINT ["tini", "--"]
 CMD [ "/bin/bash" ]
