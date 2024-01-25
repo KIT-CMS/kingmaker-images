@@ -15,7 +15,7 @@ ADD rhel9/conda_env.yml /srv/conda_env.yml
 
 RUN dnf -y update && dnf clean all
 RUN dnf -y install epel-release && dnf clean all
-RUN dnf -y install wget python3 python3-pip tini && dnf clean all
+RUN dnf -y install wget python3 python3-pip tini which zlib-devel gcc pcre2-utf16 libSM && dnf clean all
 
 RUN python3 -m pip install --upgrade pip
 # Install conda
