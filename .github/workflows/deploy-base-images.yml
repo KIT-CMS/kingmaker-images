@@ -14,8 +14,8 @@ env:
   IMAGE_NAME9: ${{ github.repository }}-rhel9
   IMAGE_NAME_UBUNTU2004: ${{ github.repository }}-ubuntu2004
   IMAGE_NAME_UBUNTU2204: ${{ github.repository }}-ubuntu2204
-  ENV_FILE: ROOT_env.yml
-  ENV_NAME: root
+  ENV_FILE: BaseWRoot_env.yml
+  ENV_NAME: base
 
 # There is a single job in this workflow. It's configured to run on the latest available version of Ubuntu.
 jobs:
