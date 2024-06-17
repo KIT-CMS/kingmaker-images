@@ -39,9 +39,8 @@ jobs:
         uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME7 }}-${{env.ENV_NAME}}
-      - name: Get latest env file from the KingMaker repo
-        run: |
-          curl -s https://raw.githubusercontent.com/KIT-CMS/KingMaker/update_setup_PR/conda_environments/${{env.ENV_FILE}} > centos7/conda_env.yml
+      - name: Copy env file
+        run: cp KingMaker_envs/${{env.ENV_FILE}}  centos7/conda_env.yml
       - name: Build and push Docker image
         uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
         with:
@@ -70,9 +69,8 @@ jobs:
         uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME9 }}-${{env.ENV_NAME}}
-      - name: Get latest env file from the KingMaker repo
-        run: |
-          curl -s https://raw.githubusercontent.com/KIT-CMS/KingMaker/update_setup_PR/conda_environments/${{env.ENV_FILE}} > rhel9/conda_env.yml
+      - name: Copy env file
+        run: cp KingMaker_envs/${{env.ENV_FILE}} rhel9/conda_env.yml
       - name: Build and push Docker image
         uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
         with:
@@ -101,9 +99,8 @@ jobs:
         uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_UBUNTU2204 }}-${{env.ENV_NAME}}
-      - name: Get latest env file from the KingMaker repo
-        run: |
-          curl -s https://raw.githubusercontent.com/KIT-CMS/KingMaker/update_setup_PR/conda_environments/${{env.ENV_FILE}} > ubuntu2204/conda_env.yml
+      - name: Copy env file
+        run: cp KingMaker_envs/${{env.ENV_FILE}} ubuntu2204/conda_env.yml
       - name: Build and push Docker image
         uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
         with:
