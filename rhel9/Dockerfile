@@ -5,7 +5,8 @@ ARG MINIFORGE_VERSION=23.11.0-0
 ARG TARGETPLATFORM
 ARG ENV_NAME=env
 ENV CONDA_DIR=/opt/conda
-
+# allow self-signed certificates
+RUN update-crypto-policies --set DEFAULT:SHA1
 # Create Server directory
 RUN mkdir -p /srv
 
@@ -15,7 +16,7 @@ ADD rhel9/conda_env.yml /srv/conda_env.yml
 
 RUN dnf -y update && dnf clean all
 RUN dnf -y install epel-release && dnf clean all
-RUN dnf -y install wget python3 python3-pip tini which zlib-devel gcc pcre2-utf16 libSM && dnf clean all
+RUN dnf -y install wget python3 python3-pip tini which zlib-devel gcc pcre2-utf16 libSM strace perf && dnf clean all
 
 RUN python3 -m pip install --upgrade pip
 # Install conda
