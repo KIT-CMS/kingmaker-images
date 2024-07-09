@@ -12,9 +12,7 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME7: ${{ github.repository }}-centos7
-  IMAGE_NAME8: ${{ github.repository }}-centos8
   IMAGE_NAME9: ${{ github.repository }}-rhel9
-  IMAGE_NAME_UBUNTU2004: ${{ github.repository }}-ubuntu2004
   IMAGE_NAME_UBUNTU2204: ${{ github.repository }}-ubuntu2204
   ENV_FILE: Base_env.yml
   ENV_NAME: base
