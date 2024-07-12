@@ -27,6 +27,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+      - name: Get short hash of the current commit
+        id: get_short_hash
+        run: echo "::set-output name=short_hash::$(git rev-parse --short HEAD)"
       - name: Log in to the Container registry
         uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
         with:
@@ -47,7 +50,7 @@ jobs:
           file: centos7/Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+          labels: ${{ steps.meta.outputs.labels }}_${{ steps.get_short_hash.outputs.short_hash }}
 
   Build-RHEL9:
     runs-on: ubuntu-latest
@@ -57,6 +60,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+      - name: Get short hash of the current commit
+        id: get_short_hash
+        run: echo "::set-output name=short_hash::$(git rev-parse --short HEAD)"
       - name: Log in to the Container registry
         uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
         with:
@@ -77,7 +83,7 @@ jobs:
           file: rhel9/Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+          labels: ${{ steps.meta.outputs.labels }}_${{ steps.get_short_hash.outputs.short_hash }}
 
   Build-Ubuntu2204:
     runs-on: ubuntu-latest
@@ -87,6 +93,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+      - name: Get short hash of the current commit
+        id: get_short_hash
+        run: echo "::set-output name=short_hash::$(git rev-parse --short HEAD)"
       - name: Log in to the Container registry
         uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
         with:
@@ -107,4 +116,4 @@ jobs:
           file: ubuntu2204/Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+          labels: ${{ steps.meta.outputs.labels }}_${{ steps.get_short_hash.outputs.short_hash }}
