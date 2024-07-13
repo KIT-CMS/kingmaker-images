@@ -4,9 +4,8 @@ name: Build base (with ROOT) Docker image
 # Configures this workflow to run every time a change is pushed to the branch called `release`.
 on:
   push:
-    paths:
-      - KingMaker_envs/Base_env.yml
-      - '*/Dockerfile'
+    branches:
+      - '**'
 
 # Defines two custom environment variables for the workflow. These are used for the Container registry domain, and a name for the Docker image that this workflow builds.
 env:
@@ -27,6 +26,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+      - name: Get short hash of the current commit
+        id: get_short_hash
+        run: echo "::set-output name=short_hash::$(git rev-parse --short HEAD)"
       - name: Log in to the Container registry
         uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
         with:
@@ -46,7 +48,7 @@ jobs:
           context: .
           file: centos7/Dockerfile
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: ${{ steps.meta.outputs.tags }}_${{ steps.get_short_hash.outputs.short_hash }}
           labels: ${{ steps.meta.outputs.labels }}
 
   Build-RHEL9:
@@ -57,6 +59,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+      - name: Get short hash of the current commit
+        id: get_short_hash
+        run: echo "::set-output name=short_hash::$(git rev-parse --short HEAD)"
       - name: Log in to the Container registry
         uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
         with:
@@ -76,7 +81,7 @@ jobs:
           context: .
           file: rhel9/Dockerfile
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: ${{ steps.meta.outputs.tags }}_${{ steps.get_short_hash.outputs.short_hash }}
           labels: ${{ steps.meta.outputs.labels }}
 
   Build-Ubuntu2204:
@@ -87,6 +92,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+      - name: Get short hash of the current commit
+        id: get_short_hash
+        run: echo "::set-output name=short_hash::$(git rev-parse --short HEAD)"
       - name: Log in to the Container registry
         uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
         with:
@@ -106,5 +114,5 @@ jobs:
           context: .
           file: ubuntu2204/Dockerfile
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: ${{ steps.meta.outputs.tags }}_${{ steps.get_short_hash.outputs.short_hash }}
           labels: ${{ steps.meta.outputs.labels }}
