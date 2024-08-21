@@ -8,6 +8,8 @@ ENV CONDA_DIR=/opt/conda
 
 # Create Server directory
 RUN mkdir -p /srv
+# create certificates dir
+RUN mkdir -p /etc/grid-security/certificates
 
 # Add configurations
 # they will be picked from https://raw.githubusercontent.com/KIT-CMS/KingMaker during build
