@@ -14,7 +14,7 @@ RUN mkdir -p /srv
 ADD centos7/conda_env.yml /srv/conda_env.yml
 
 # Switch to alternative epel source as CERN CentOS7 address is no longer available
-RUN sed -i s@http://linuxsoft.cern.ch/@https://download.fedoraproject.org/pub/@ /etc/yum.repos.d/epel.repo
+RUN sed -i s@http://linuxsoft.cern.ch/@https://archives.fedoraproject.org/pub/archive/@ /etc/yum.repos.d/epel.repo
 
 RUN yum -y update && yum clean all
 RUN yum -y install epel-release && yum clean all
