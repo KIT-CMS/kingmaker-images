@@ -13,6 +13,9 @@ RUN mkdir -p /srv
 # they will be picked from https://raw.githubusercontent.com/KIT-CMS/KingMaker during build
 ADD centos7/conda_env.yml /srv/conda_env.yml
 
+# Switch to alternative epel source as CERN CentOS7 address is no longer available
+RUN sed -i s@http://linuxsoft.cern.ch/@https://download.fedoraproject.org/pub/@ /etc/yum.repos.d/epel.repo
+
 RUN yum -y update && yum clean all
 RUN yum -y install epel-release && yum clean all
 RUN yum -y install wget python3 python3-pip tini redhat-lsb-core which gcc-c++ strace perf && yum clean all
