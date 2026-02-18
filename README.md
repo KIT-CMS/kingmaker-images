@@ -34,3 +34,14 @@ Triggering CI
 
 - Push changes to the repository trigger the published GitHub Actions workflows in `kingmaker-images/.github/workflows`.
 - The workflows will use the environment YAML files to assemble images. Check workflow logs on GitHub to debug failures.
+
+Image locations
+
+- The built images are published to the GitHub Container Registry (GHCR) under the `kit-cms` organization. Image names and tags follow the pattern used by the workflows.
+- Name pattern: `ghcr.io/kit-cms/kingmaker-images-<OS-name>-<env-name>`
+- Tag pattern: `<branch>_<commit-short>`
+- Example pull command for an RHEL9 KingMaker image built from the `main` branch:
+
+```
+docker pull ghcr.io/kit-cms/kingmaker-images-rhel9-kingmaker:main_b5574a0
+```
