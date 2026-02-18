@@ -11,8 +11,8 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME9: ${{ github.repository }}-rhel9
-  ENV_FILE: KingMaker_env.yml
-  ENV_NAME: kingmaker
+  ENV_FILE: KingMakerStandalone_env.yml
+  ENV_NAME: KingMakerStandalone
 
 # There is a single job in this workflow. It's configured to run on the latest available version of Ubuntu.
 jobs:
@@ -32,7 +32,7 @@ jobs:
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          password: ${{ secrets.TOKEN }}
       - name: Extract metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
