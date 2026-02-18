@@ -6,9 +6,9 @@ This repository builds Conda environment-based container images using GitHub Act
 
 **Repository layout (relevant files)**
 
-- **Conda envs:** ``kingmaker-images/KingMaker_envs/*_env.yml``
-- **Workflows:** ``kingmaker-images/.github/workflows/deploy-*-images.yml``
-- **OS Dockerfile:** ``kingmaker-images/*/Dockerfile``
+- **Conda envs:** ``KingMaker_envs/*_env.yml``
+- **Workflows:** ``.github/workflows/deploy-*-images.yml``
+- **OS Dockerfile:** ``rhel9/Dockerfile``
 
 How it works
 
